@@ -75,78 +75,78 @@ test_that("it groups and ungroups the data", {
   expect_equal(dplyr::groups(a), list(as.symbol("f"), as.symbol("rebase_group")))
 })
 
-# ptd_seven_point_one_side_mean() ----
-test_that("ptd_seven_point_one_side_mean works as expected", {
-  expect_equal(ptd_seven_point_one_side_mean(numeric()), numeric())
+# ptd_six_point_one_side_mean() ----
+test_that("ptd_six_point_one_side_mean works as expected", {
+  expect_equal(ptd_six_point_one_side_mean(numeric()), numeric())
   expect_equal(
-    ptd_seven_point_one_side_mean(rep(1, 6)),
+    ptd_six_point_one_side_mean(rep(1, 5)),
+    c(0, 0, 0, 0, 0)
+  )
+  expect_equal(
+    ptd_six_point_one_side_mean(c(rep(1, 5), -1)),
     c(0, 0, 0, 0, 0, 0)
   )
   expect_equal(
-    ptd_seven_point_one_side_mean(c(rep(1, 6), -1)),
-    c(0, 0, 0, 0, 0, 0, 0)
+    ptd_six_point_one_side_mean(c(rep(1, 7), -1)),
+    c(0, 0, 0, 0, 0, 1, 1, 0)
   )
   expect_equal(
-    ptd_seven_point_one_side_mean(c(rep(1, 8), -1)),
-    c(0, 0, 0, 0, 0, 0, 1, 1, 0)
-  )
-  expect_equal(
-    ptd_seven_point_one_side_mean(c(rep(-1, 8), 1)),
-    c(0, 0, 0, 0, 0, 0, 1, 1, 0)
+    ptd_six_point_one_side_mean(c(rep(-1, 7), 1)),
+    c(0, 0, 0, 0, 0, 1, 1, 0)
   )
 })
 
-# ptd_part_of_seven_trend() ----
-test_that("ptd_part_of_seven_trend works as expected", {
-  expect_equal(ptd_part_of_seven_trend(numeric()), numeric())
+# ptd_part_of_six_trend() ----
+test_that("ptd_part_of_six_trend works as expected", {
+  expect_equal(ptd_part_of_six_trend(numeric()), numeric())
   expect_equal(
-    ptd_part_of_seven_trend(rep(0, 6)),
-    c(0, 0, 0, 0, 0, 0)
+    ptd_part_of_six_trend(rep(0, 5)),
+    c(0, 0, 0, 0, 0)
   )
 
   expect_equal(
-    ptd_part_of_seven_trend(c(rep(0, 6), 1, 0)),
-    c(rep(1, 7), 0)
+    ptd_part_of_six_trend(c(rep(0, 5), 1, 0)),
+    c(rep(1, 6), 0)
   )
 
   expect_equal(
-    ptd_part_of_seven_trend(c(rep(0, 7), 1, 0)),
-    c(0, rep(1, 7), 0)
+    ptd_part_of_six_trend(c(rep(0, 6), 1, 0)),
+    c(0, rep(1, 6), 0)
   )
 
   expect_equal(
-    ptd_part_of_seven_trend(c(rep(0, 6), -1, 0)),
-    c(rep(1, 7), 0)
+    ptd_part_of_six_trend(c(rep(0, 5), -1, 0)),
+    c(rep(1, 6), 0)
   )
 
   expect_equal(
-    ptd_part_of_seven_trend(c(rep(0, 7), -1, 0)),
-    c(0, rep(1, 7), 0)
+    ptd_part_of_six_trend(c(rep(0, 6), -1, 0)),
+    c(0, rep(1, 6), 0)
   )
 })
 
-# ptd_seven_point_trend() ----
-test_that("ptd_seven_point_trend works as expected", {
-  expect_equal(ptd_seven_point_trend(numeric()), numeric())
+# ptd_six_point_trend() ----
+test_that("ptd_six_point_trend works as expected", {
+  expect_equal(ptd_six_point_trend(numeric()), numeric())
   expect_equal(
-    ptd_seven_point_trend(1:6),
-    c(0, 0, 0, 0, 0, 0)
+    ptd_six_point_trend(1:5),
+    c(0, 0, 0, 0, 0)
   )
 
-  a <- ptd_seven_point_trend(c(1:3, 3:6))
-  expect_equal(a, c(0, 0, 0, 0, 0, 0, 0))
+  a <- ptd_six_point_trend(c(1:3, 3:5))
+  expect_equal(a, c(0, 0, 0, 0, 0, 0))
 
-  b <- ptd_seven_point_trend(1:7)
-  expect_equal(b, c(0, 0, 0, 0, 0, 0, 1))
+  b <- ptd_six_point_trend(1:6)
+  expect_equal(b, c( 0, 0, 0, 0, 0, 1))
 
-  d <- ptd_seven_point_trend(c(2, 1:7, 3))
-  expect_equal(d, c(0, 0, 0, 0, 0, 0, 0, 1, 0))
+  d <- ptd_six_point_trend(c(2, 1:6, 3))
+  expect_equal(d, c(0, 0, 0, 0, 0, 0, 1, 0))
 
-  e <- ptd_seven_point_trend(7:1)
-  expect_equal(e, c(0, 0, 0, 0, 0, 0, -1))
+  e <- ptd_six_point_trend(6:1)
+  expect_equal(e, c(0, 0, 0, 0, 0, -1))
 
-  f <- ptd_seven_point_trend(c(2, 7:1, 3))
-  expect_equal(f, c(0, 0, 0, 0, 0, 0, 0, -1, 0))
+  f <- ptd_six_point_trend(c(2, 6:1, 3))
+  expect_equal(f, c(0, 0, 0, 0, 0, 0, -1, 0))
 })
 
 # ptd_two_in_three() ----
@@ -243,13 +243,12 @@ test_that("ptd_part_of_two_in_three works as expected", {
   expect_equal(ia, c(0, 0, 0, 1, 1))
 })
 
-# ptd_special_cause_type() ----
 test_that("ptd_special_cause_type works as expected", {
-  # there are 7 possible inputs that result in a 1 result, and 1 input that results in a 0.
+  # there are ?6 possible inputs that result in a 1 result, and 1 input that results in a 0.
   # we can mock the functions that are called and return results that can test these cases
-  m1 <- mock("sevenPointOneSideOfMean")
-  m2 <- mock("sevenPointTrend")
-  # partOfSevenTrend: this is called twice
+  m1 <- mock("sixPointOneSideOfMean")
+  m2 <- mock("sixPointTrend")
+  # partOfSixTrend: this is called twice
   m3 <- mock(
     c(1, -1, 0, 0, 0, 0, 0, 0),
     c(0, 0, 1, -1, 0, 0, 0, 0)
@@ -258,9 +257,9 @@ test_that("ptd_special_cause_type works as expected", {
   m5 <- mock(c(0, 0, 0, 0, 1, 0, 0, 0)) # part_of_two_in_three
 
   # tie these areas up with the variable names in function that you want to stub.
-  stub(ptd_special_cause_type, "ptd_seven_point_one_side_mean", m1) # -names
-  stub(ptd_special_cause_type, "ptd_seven_point_trend", m2) # - names
-  stub(ptd_special_cause_type, "ptd_part_of_seven_trend", m3) #- values
+  stub(ptd_special_cause_type, "ptd_six_point_one_side_mean", m1) # -names
+  stub(ptd_special_cause_type, "ptd_six_point_trend", m2) # - names
+  stub(ptd_special_cause_type, "ptd_part_of_six_trend", m3) #- values
   stub(ptd_special_cause_type, "ptd_two_in_three", m4) # -value
   stub(ptd_special_cause_type, "ptd_part_of_two_in_three", m5) # -values
 
@@ -274,10 +273,10 @@ test_that("ptd_special_cause_type works as expected", {
   expect_equal(
     a,
     c(
-      "7 Point Trend (Increasing)",
-      "7 Point Trend (Increasing)",
-      "7 Points Above CL",
-      "7 Points Above CL",
+      "6 Point Trend (Increasing)",
+      "6 Point Trend (Increasing)",
+      "6 Points Above CL",
+      "6 Points Above CL",
       "2 in 3 Below CL",
       "Below LCL",
       "Below LCL",
